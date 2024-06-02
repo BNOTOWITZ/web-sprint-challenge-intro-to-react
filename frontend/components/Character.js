@@ -1,41 +1,42 @@
-import React, { useState } from 'react';
+import React from 'react'
+import { useState } from 'react'
 
-function Character({ character }) {
-  // ❗ Add the props
-  const { name, birth_year, gender, height, mass, homeworld } = character;
+function Character(props) { 
+  const {character} = props;
+  const [planetToggle, setPlanetToggle] = useState(false);
 
-  // ❗ Create a state to hold whether the homeworld is rendering or not
-  const [showHomeworld, setShowHomeworld] = useState(false);
-
-  // ❗ Create a "toggle" click handler to show or remove the homeworld
-  const toggleHomeworld = () => {
-    setShowHomeworld(!showHomeworld);
-  };
+  const toggle= () => {
+    setPlanetToggle(!planetToggle);
+  }
 
   return (
-    <div>
-      {/* Use the same markup with the same attributes as in the mock */}
-      <div>
-        <h3>{name}</h3>
-        <p>Birth Year: {birth_year}</p>
-        <p>Gender: {gender}</p>
-        <p>Height: {height}</p>
-        <p>Mass: {mass}</p>
-        <button onClick={toggleHomeworld}>
-          {showHomeworld ? 'Hide Homeworld' : 'Show Homeworld'}
-        </button>
-        {showHomeworld && (
-          <div>
-            <h4>Homeworld</h4>
-            <p>Name: {homeworld.name}</p>
-            <p>Climate: {homeworld.climate}</p>
-            <p>Terrain: {homeworld.terrain}</p>
-            <p>Population: {homeworld.population}</p>
-          </div>
-        )}
-      </div>
+    <div className="character-card" onClick={() => toggle()}>
+      <h3 className="character-name">{character.name}</h3>
+      <p>Birth_year: {character.birth_year}</p>
+      <p>Eye_color: {character.eye_color}</p>
+      <p>Gender: {character.gender}</p>
+      <p>Hair_color: {character.hair_color}</p>
+      <p>Height: {character.height}</p>
+      <p>Mass: {character.mass}</p>
+      <p>Skin_color: {character.skin_color}</p>
+      {
+        planetToggle? 
+        <div className="character-planet">
+          <h3>{character.homeworld.name}</h3>
+          <p>Climate: {character.homeworld.climate}</p>
+          <p>Diameter: {character.homeworld.diameter}</p>
+          <p>Gravity: {character.homeworld.gravity}</p>
+          <p>Orbital_period: {character.homeworld.orbital_period}</p>
+          <p>Population: {character.homeworld.population}</p>
+          <p>Rotation_period: {character.homeworld.rotation_period}</p>
+          <p>Surface_water: {character.homeworld.surface_water}</p>
+          <p>Terrain: {character.homeworld.terrain}</p>
+        </div> 
+        : 
+        <></>
+      }
     </div>
-  );
+  )
 }
 
-export default Character;
+export default Character
